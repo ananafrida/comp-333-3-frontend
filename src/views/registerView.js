@@ -3,6 +3,7 @@ import { useState , useEffect } from "react"
 import { TextField, FormControl, Button } from "@mui/material";
 import axios from "axios";
 import styles from './registerView.module.css';
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterView () {
 
@@ -12,6 +13,8 @@ export default function RegisterView () {
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+
+    const navigate = useNavigate();
 
     function registerUser (event) {
         event.preventDefault();
@@ -34,6 +37,7 @@ export default function RegisterView () {
                 console.log("User registered successfully!");
                 console.log("Username:", response.data.username); // Access username from the response data
 
+                navigate("/");
                 // Handle successful registration, such as redirecting to another page
             } else {
                 console.error(`Registration failed. ${response.data.username}`);
@@ -46,7 +50,7 @@ export default function RegisterView () {
             // Handle registration error, display an error message, etc.
             });
         return;
-    }
+    }    
 
     return (
         <div className={styles.container}> 

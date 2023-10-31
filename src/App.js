@@ -12,7 +12,6 @@ import DeleteView from './views/deleteView';
 import LoginView from './views/loginView';
 import RegisterView from './views/registerView';
 
-
 function App() {
   return (
     <BrowserRouter>
