@@ -15,7 +15,7 @@
 
 .MuiFormControl-root {
     background-color: white;
-    width: 100%; /* Makes the inputs fill the available width */
-    max-width: 200px; /* Limits the maximum width of the inputs */
+    width: 100%; 
+    max-width: 200px; 
     margin-bottom: 15px;
   }

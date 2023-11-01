@@ -10,8 +10,23 @@ export default function LoginView () {
     const [password, setPassword] = useState("");
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const [user, setUser] = useState();
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("user");
+        if (loggedInUser) {
+          const foundUser = loggedInUser;
+          setUser(foundUser);
+        }
+      }, []);
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate])
 
     function registerUser (event) {
         event.preventDefault();
@@ -22,15 +37,13 @@ export default function LoginView () {
                 password: password,
             })
             .then((response) => {
-                console.log("API Response:", response.data);
-                console.log(response.data.success);
 
             if (response.data.success) {
-                console.log("User Logged in successfully!");
-                console.log("Username:", response.data.username); // Access username from the response data
+
+                setUser(response.data.username);
+                localStorage.setItem('user', response.data.username);
 
                 navigate("/");
-                // Handle successful registration, such as redirecting to another page
             } else {
                 console.error(`Login failed. ${response.data.username}`);
                 // Handle registration failure, display an error message, etc.
