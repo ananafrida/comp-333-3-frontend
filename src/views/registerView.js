@@ -22,14 +22,9 @@ export default function RegisterView () {
         if (loggedInUser) {
           const foundUser = loggedInUser;
           setUser(foundUser);
+          navigate("/");
         }
       }, []);
-
-    useEffect(() => {
-        if (user) {
-            navigate("/");
-        }
-    }, [user, navigate])
 
     function registerUser (event) {
         event.preventDefault();
@@ -101,9 +96,11 @@ export default function RegisterView () {
                     fullWidth
                     sx={{mb: 3}}
                  />
-                 <Button variant="outlined" color="secondary" type="submit">Login</Button>
-             
+                 <Button variant="outlined" color="secondary" type="submit">Register</Button>
+                
         </form>
+        <Button variant="outlined" color="secondary" onClick={() => navigate("/login")}>Login</Button>
+
         </div>
     )
 }

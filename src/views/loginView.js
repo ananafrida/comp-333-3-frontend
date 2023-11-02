@@ -3,7 +3,7 @@ import { useState , useEffect } from "react"
 import { TextField, FormControl, Button } from "@mui/material";
 import axios from "axios";
 import styles from './loginView.module.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 export default function LoginView () {
 
     const [username, setUsername] = useState("");
@@ -19,16 +19,11 @@ export default function LoginView () {
         if (loggedInUser) {
           const foundUser = loggedInUser;
           setUser(foundUser);
+          navigate("/");
         }
       }, []);
 
-    useEffect(() => {
-        if (user) {
-            navigate("/");
-        }
-    }, [user, navigate])
-
-    function registerUser (event) {
+    function loginUser (event) {
         event.preventDefault();
 
         axios
@@ -59,8 +54,8 @@ export default function LoginView () {
 
     return (
         <div className={styles.container}> 
-            <h1 className={styles.heading}>Register Form</h1>
-            <form autoComplete="off" onSubmit={registerUser}>
+            <h1 className={styles.heading}>Login Form</h1>
+            <form autoComplete="off" onSubmit={loginUser}>
                 <TextField 
                     label="username"
                     onChange={e => setUsername(e.target.value)}
@@ -88,6 +83,7 @@ export default function LoginView () {
                  <Button variant="outlined" color="secondary" type="submit">Login</Button>
              
         </form>
+        <Button variant="outlined" color="secondary" onClick={() => navigate("/register")}>Register</Button>
         </div>
     )
 }
