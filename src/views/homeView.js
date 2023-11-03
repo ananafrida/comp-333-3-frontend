@@ -5,11 +5,17 @@ import axios from "axios";
 import styles from './homeView.module.css';
 import { useNavigate, Link } from "react-router-dom";
 import MusicComponent from "../componenets/music_component";
+import LoginComponent from "../componenets/login_component";
+import RegisterComponent from "../componenets/register_componenet";
 
 export default function HomeView () {
 
     const [user, setUser] = useState();
     const [musicData, setMusicData] = useState([]);
+
+    const [showLogin, updateShowLogin] = useState(false);
+    const [showRegister, updateShowRegister] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,15 +25,21 @@ export default function HomeView () {
           setUser(foundUser);
           getMusic();
         }
-        else {
-            navigate("/login");
-        }
-      }, []);
+        // else {
+        //     navigate("/login");
+        // }
+      }, [showLogin, showRegister]);
 
     function logout () {
         setUser();
-        localStorage.clear();
-        navigate("/login");
+        axios.post("http://localhost:80/index.php/user/logout", {}, {withCredentials: true}).then(
+            () => {
+                localStorage.clear();
+                // navigate("/login");
+                getMusic();
+            }
+        )
+
     }
 
     function updateMusicData() {
@@ -55,6 +67,34 @@ export default function HomeView () {
     return (
         <div>
             <h1>Home View</h1>
+            {!user && <div><Button onClick={() => {
+                updateShowLogin(!showLogin); 
+                if (showRegister) {
+                    updateShowRegister(!showRegister);
+                }
+            }}>Log In</Button>
+            <Button onClick={() => {
+                updateShowRegister(!showRegister);
+                if (showLogin) {
+                    updateShowLogin (!showLogin);
+                }
+                }}>Register</Button></ div>}
+            
+
+            {showLogin && (
+                <LoginComponent
+                    updateMusicData={updateMusicData}
+                    showLogin={showLogin}
+                    updateShowLogin={updateShowLogin}
+                />
+                )}
+            {showRegister && (
+                <RegisterComponent
+                    updateMusicData={updateMusicData}
+                    showRegister={showRegister}
+                    updateShowRegister={updateShowRegister}
+                />
+                )}
             <Button onClick={() => navigate("/create")}>Create</Button>
             <div>
             {musicData.map((music) => (
@@ -70,7 +110,7 @@ export default function HomeView () {
                     />
                 ))}
             </div>
-            <Button onClick={logout}>Logout</Button>
+            {user && <Button onClick={logout}>Logout</Button>}
         </div>
     )
 }

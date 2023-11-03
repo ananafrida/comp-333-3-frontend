@@ -1,0 +1,23 @@
+.heading {
+    align-self: center;
+    font-family: cursive;
+    color: black;
+    font-size: xx-large;
+    align-items: center;
+}
+
+.container {
+    background-color: #bc8cd6;    
+}
+
+.MuiFormControl-root {
+    background-color: white;
+    width: 100%; /* Makes the inputs fill the available width */
+    max-width: 200px; /* Limits the maximum width of the inputs */
+    margin-bottom: 15px;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+}
