@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
-
 import {
   List,
   ListItem,
@@ -15,6 +14,39 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import UpdateView from "./updateView"; // Import the UpdateView component
+
+function StarRating({ rating }) {
+  const maxStars = 5;
+  const fullStars = Math.floor(rating);
+  const halfStars = rating - fullStars >= 0.5 ? 1 : 0;
+
+  const stars = [];
+  for (let i = 0; i < fullStars; i++) {
+    stars.push(
+      <span key={i} role="img" aria-label="star">
+        ⭐
+      </span>
+    );
+  }
+
+  if (halfStars === 1) {
+    stars.push(
+      <span key={fullStars} role="img" aria-label="half-star">
+        🌟
+      </span>
+    );
+  }
+
+  while (stars.length < maxStars) {
+    stars.push(
+      <span key={stars.length} role="img" aria-label="empty-star">
+        ☆
+      </span>
+    );
+  }
+
+  return <span>{stars}</span>;
+}
 
 function HomeView() {
   const navigate = useNavigate();
@@ -106,8 +138,9 @@ function HomeView() {
           <ListItem key={song.id}>
             <ListItemText
               primary={song.song}
-              secondary={`Artist: ${song.artist}, Rating: ${song.rating}`}
+              secondary={`Artist: ${song.artist}`}
             />
+            <StarRating rating={song.rating} />
             {loggedInUser === song.username && (
               <Link to={`/update/${song.id}`}>
                 <Button variant="contained" color="primary">
@@ -135,7 +168,7 @@ function HomeView() {
           <TextField
             label="Song"
             value={newSong.song}
-            onChange={(e) => setNewSong({ ...newSong, song: e.target.value })}
+            onChange={(e) => setNewSong({ ...newSong, song: e.target.value})}
             fullWidth
           />
           <TextField
