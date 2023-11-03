@@ -5,12 +5,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import HomeView from './views/homeView';
-import CreateView from './views/createView';
-import ReadView from './views/readView';
-import UpdateView from './views/updateView';
-import DeleteView from './views/deleteView';
-import LoginView from './views/loginView';
-import RegisterView from './views/registerView';
+import CreateView from './views/createView'
 
 function App() {
   return (
@@ -19,11 +14,6 @@ function App() {
         <Routes>
               <Route path="/" element={<HomeView />} />
               <Route path="/create" element={<CreateView />} />
-              <Route path="/read" element={<ReadView />} />
-              <Route path="/update/:id" element={<UpdateView onClose={() =>{}} />} />
-              <Route path="/delete" element={<DeleteView />} />
-              <Route path="/register" element={<RegisterView />} />
-              <Route path="/login" element={<LoginView />} />
         </Routes>
     </BrowserRouter>
   );
