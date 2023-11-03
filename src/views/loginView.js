@@ -1,10 +1,12 @@
 import React from "react"
+import Cookies from 'js-cookie';
 import { useState , useEffect } from "react"
 import { TextField, FormControl, Button } from "@mui/material";
 import axios from "axios";
 import styles from './loginView.module.css';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export default function LoginView () {
+
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -12,40 +14,59 @@ export default function LoginView () {
     const [passwordError, setPasswordError] = useState(false);
     const [user, setUser] = useState();
 
+
+
+
     const navigate = useNavigate();
 
+
     useEffect(() => {
-        const loggedInUser = localStorage.getItem("user");
+        // const loggedInUser = localStorage.getItem("user");
+        const loggedInUser = Cookies.get('name');
         if (loggedInUser) {
           const foundUser = loggedInUser;
           setUser(foundUser);
-          navigate("/");
         }
       }, []);
 
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate])
+
+
     function loginUser (event) {
         event.preventDefault();
+
 
         axios
             .post("http://localhost:80/index.php/user/login",{
                 username: username,
                 password: password,
-            }, {withCredentials: true})
+            })
             .then((response) => {
 
-            if (response.data.success) {
-                
-                setUser(response.data.username);
-                localStorage.setItem('user', response.data.username);
 
-                const cookies = response.headers['set-cookie'];
-                localStorage.setItem('cookies', JSON.stringify(cookies));
+            if (response.data.success) {
+
+
+                console.log(response.data)
+                setUser(response.data.username);
+                // localStorage.setItem('user', response.data.username);
+                Cookies.set('name', response.data.username, { expires: 1 })
+                // Cookies.set('name', 'value', { expires: 365 })
+                // Cookies.get('name') // => 'value'
+                // Cookies.remove('name')
+
 
                 navigate("/");
             } else {
                 console.error(`Login failed. ${response.data.username}`);
                 // Handle registration failure, display an error message, etc.
             }
+
 
             })
             .catch((error) => {
@@ -55,11 +76,12 @@ export default function LoginView () {
         return;
     }    
 
+
     return (
-        <div className={styles.container}> 
+        <div className={styles.container}>
             <h1 className={styles.heading}>Login Form</h1>
             <form autoComplete="off" onSubmit={loginUser}>
-                <TextField 
+                <TextField
                     label="username"
                     onChange={e => setUsername(e.target.value)}
                     required
@@ -71,7 +93,7 @@ export default function LoginView () {
                     value={username}
                     error={usernameError}
                  />
-                 <TextField 
+                 <TextField
                     label="Password"
                     onChange={e => setPassword(e.target.value)}
                     required
@@ -86,7 +108,12 @@ export default function LoginView () {
                  <Button variant="outlined" color="secondary" type="submit">Login</Button>
              
         </form>
-        <Button variant="outlined" color="secondary" onClick={() => navigate("/register")}>Register</Button>
         </div>
     )
 }
+
+
+
+
+
+
