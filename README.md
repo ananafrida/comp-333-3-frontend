@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Frontend README
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This README provides information on the frontend part of our project for COMP 333: Software Engineering 2023 at Wesleyan University.
 
-## Available Scripts
+## Project Overview
 
-In the project directory, you can run:
+In this assignment, we have developed a full-stack CRUD (Create, Read, Update, Delete) app with a React frontend that seamlessly integrates with our PHP/MySQL backend via a REST API. The app allows users to manage a list of songs, including creating, reading, updating, and deleting songs. The frontend provides a user-friendly interface to interact with the database.
 
-### `npm start`
+### Learning Goals Achieved
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+In this project, we have achieved the following learning goals:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Designed and implemented a single-page app (SPA) using JavaScript and React.
+2. Utilized the Model-View-Controller (MVC) design pattern to create a Representational State Transfer (REST) API for frontend-backend communication.
+3. Gained experience with build tools, package managers, and integrating third-party code.
 
-### `npm test`
+## Setup and Run the Frontend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Follow the instructions below to set up and run the frontend of our app in a local development environment.
 
-### `npm run build`
+1. **Clone the Repository**: Clone this repository to your local machine:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```shell
+   git clone https://github.com/your-username/frontend-repo.git
+2. **Navigate to the Frontend Directory:** 
+    cd frontend-repo
+3. **Install Dependencies: Install the required dependencies using npm:** npm install
+4 **Run the Development Server: Start the development server for the frontend:** npm start
+5. **Accessing the app** Open a web browser and access the app at http://localhost:3000
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## MVC Architecture and REST API
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Our app follows the Model-View-Controller (MVC) design pattern, which separates the software's business logic, display, and controlling logic.
 
-### `npm run eject`
+- **Model**: Manages data and business logic (e.g., SongModel.js, UserModel.js).
+- **View**: Handles layout and display (e.g., React components).
+- **Controller**: Routes commands to the model and view (REST API via index.php).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Backend Repository
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For details on the backend and how to set up the database, refer to the [Backend README](https://github.com/n-aggarwal/comp-333-3-backend/edit/main/README.md).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Feature Implementation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+In addition to the required CRUD operations, we have implemented the following feature: [Describe the feature you implemented and how to use it.]
 
-## Learn More
+## Team Contribution
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Please provide an estimate of how much each team member contributed. For example, "50/50" or "60/40". This helps us understand the distribution of work.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Team Member 1: Anan Afrida (90%)
+- Team Member 2: Nishant Aggarwal (10%)

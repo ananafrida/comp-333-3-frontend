@@ -9,6 +9,7 @@ import CreateView from './views/createView'
 
 function App() {
   return (
+    // setting different routing parth for different files 
     <BrowserRouter>
         <Routes>
               <Route path="/" element={<HomeView />} />
