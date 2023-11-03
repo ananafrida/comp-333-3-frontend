@@ -11,21 +11,27 @@ import {
 } from "@mui/material";
 
 function CreateView() {
+  // State to store the new song data
   const [newSong, setNewSong] = useState({
     artist: "",
     song: "",
     rating: "",
   });
+  
+  // State to control the visibility of the create dialog
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
+  // Handler to open the create dialog
   const handleCreateClick = () => {
     setOpenCreateDialog(true);
   };
 
+  // Handler to close the create dialog
   const handleCreateClose = () => {
     setOpenCreateDialog(false);
   };
 
+  // Handler to create a new song
   const handleCreateSong = () => {
     // Send a request to create the new song
     fetch("http://localhost:80/index.php/music/create", {

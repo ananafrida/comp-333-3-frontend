@@ -1,3 +1,4 @@
+// Import necessary React, MUI components, and external libraries
 import React, { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
 import {
@@ -15,6 +16,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import UpdateView from "./updateView"; // Import the UpdateView component
 
+// StarRating component to display song ratings
 function StarRating({ rating }) {
   const maxStars = 5;
   const fullStars = Math.floor(rating);
@@ -50,17 +52,18 @@ function StarRating({ rating }) {
 
 function HomeView() {
   const navigate = useNavigate();
-  const [songList, setSongList] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const [openCreateDialog, setOpenCreateDialog] = useState(false);
-  const [newSong, setNewSong] = useState({
+  const [songList, setSongList] = useState([]); // State to store the list of songs
+  const [loggedInUser, setLoggedInUser] = useState(null); // State to store the logged-in user
+  const [openCreateDialog, setOpenCreateDialog] = useState(false); // State to control the visibility of the create dialog
+  const [newSong, setNewSong] = useState({ // State to store data of the new song
     artist: "",
     song: "",
     rating: "",
   });
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [showUpdateForm, setShowUpdateForm] = useState(false); // State to control the visibility of the update form
   const [artistFilter, setArtistFilter] = useState(""); // State for artist filtering
 
+  // Effect to fetch user data and song list
   useEffect(() => {
     const user = Cookies.get('name');
     if (user) {
@@ -90,6 +93,7 @@ function HomeView() {
   };
 
   const handleCreateSong = () => {
+    // Send a request to create the new song
     fetch("http://localhost:80/index.php/music/create", {
       method: "POST",
       body: JSON.stringify(newSong),
@@ -112,6 +116,7 @@ function HomeView() {
       });
   };
 
+  // Filter songs based on artist name
   const filteredSongs = songList.filter((song) =>
     artistFilter
       ? song.artist.toLowerCase().includes(artistFilter.toLowerCase())
@@ -132,6 +137,7 @@ function HomeView() {
         </>
       )}
 
+      {/* Textfield for artist search */}
       <TextField
         label="Search by Artist"
         value={artistFilter}
@@ -180,7 +186,7 @@ function HomeView() {
             }
             fullWidth
           />
-          <TextField
+  <TextField
             label="Song"
             value={newSong.song}
             onChange={(e) => setNewSong({ ...newSong, song: e.target.value})}
