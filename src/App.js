@@ -17,12 +17,12 @@ function App() {
     <BrowserRouter>
         <Routes>
               <Route path="/" element={<HomeView />} />
-              <Route path="create" element={<CreateView />} />
-              <Route path="read" element={<ReadView />} />
-              <Route path="update" element={<UpdateView />} />
-              <Route path="delete" element={<DeleteView />} />
-              <Route path="register" element={<RegisterView />} />
-              <Route path="login" element={<LoginView />} />
+              <Route path="/create" element={<CreateView />} />
+              <Route path="/read" element={<ReadView />} />
+              <Route path="/update/:id" element={<UpdateView onClose={() =>{}} />} />
+              <Route path="/delete" element={<DeleteView />} />
+              <Route path="/register" element={<RegisterView />} />
+              <Route path="/login" element={<LoginView />} />
         </Routes>
     </BrowserRouter>
   );

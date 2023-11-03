@@ -1,4 +1,5 @@
 import React from "react"
+import Cookies from 'js-cookie';
 import { useState , useEffect } from "react"
 import { TextField, FormControl, Button } from "@mui/material";
 import axios from "axios";
@@ -12,10 +13,12 @@ export default function LoginView () {
     const [passwordError, setPasswordError] = useState(false);
     const [user, setUser] = useState();
 
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        const loggedInUser = localStorage.getItem("user");
+        // const loggedInUser = localStorage.getItem("user");
+        const loggedInUser = Cookies.get('name');
         if (loggedInUser) {
           const foundUser = loggedInUser;
           setUser(foundUser);
@@ -40,8 +43,13 @@ export default function LoginView () {
 
             if (response.data.success) {
 
+                console.log(response.data)
                 setUser(response.data.username);
-                localStorage.setItem('user', response.data.username);
+                // localStorage.setItem('user', response.data.username);
+                Cookies.set('name', response.data.username, { expires: 1 })
+                // Cookies.set('name', 'value', { expires: 365 })
+                // Cookies.get('name') // => 'value'
+                // Cookies.remove('name')
 
                 navigate("/");
             } else {
