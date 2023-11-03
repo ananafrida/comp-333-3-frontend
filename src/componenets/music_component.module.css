@@ -1,7 +1,3 @@
-.container { 
-    display: "flex"; 
-    justifyContent: "space-between" ;
-    alignItems: "center";
-    padding: "10px";
-    borderBottom: "1px solid #ccc"; 
-}
+.form {
+    background-color: rgb(147, 144, 144);
+} 
