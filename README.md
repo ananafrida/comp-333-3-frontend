@@ -48,5 +48,5 @@ In addition to the required CRUD operations, we have implemented the following f
 
 Please provide an estimate of how much each team member contributed. For example, "50/50" or "60/40". This helps us understand the distribution of work.
 
-- Team Member 1: Anan Afrida (50%)
-- Team Member 2: Nishant Aggarwal (50%)
+- Team Member 1: Anan Afrida (90%)
+- Team Member 2: Nishant Aggarwal (10%)
