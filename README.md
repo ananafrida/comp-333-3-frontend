@@ -38,7 +38,7 @@ Our app follows the Model-View-Controller (MVC) design pattern, which separates 
 
 ## Backend Repository
 
-For details on the backend and how to set up the database, refer to the [Backend README](link-to-backend-readme.md).
+For details on the backend and how to set up the database, refer to the [Backend README](https://github.com/n-aggarwal/comp-333-3-backend/edit/main/README.md).
 
 ## Feature Implementation
 
