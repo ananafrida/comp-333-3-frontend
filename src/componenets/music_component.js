@@ -26,8 +26,12 @@ export default function MusicComponent({ id, username, artist, song, rating, sig
 
     const handleUpdateSubmit = (event) => {
         event.preventDefault();
-        // Handle update logic (e.g., send data to the server)
-        // After successful update, you can close the form
+        axios.post("http://localhost:80/index.php/music/update",{id : id, artist: updatedArtist, song: updatedSong, rating: updatedRating}, {withCredentials: true}).then(
+            () => {
+                setDeleteFormVisibility(false);
+                updateMusicData();
+            }
+        )
         setUpdateFormVisibility(false);
     };
 
