@@ -5,6 +5,39 @@ import { useState } from "react";
 import styles from "./music_component.module.css"
 import axios from "axios";
 
+function StarRating({ rating }) {
+    const maxStars = 5;
+    const fullStars = Math.floor(rating);
+    const halfStars = rating - fullStars >= 0.5 ? 1 : 0;
+  
+    const stars = [];
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(
+        <span key={i} role="img" aria-label="star">
+          ⭐
+        </span>
+      );
+    }
+  
+    if (halfStars === 1) {
+      stars.push(
+        <span key={fullStars} role="img" aria-label="half-star">
+          🌟
+        </span>
+      );
+    }
+  
+    while (stars.length < maxStars) {
+      stars.push(
+        <span key={stars.length} role="img" aria-label="empty-star">
+          ☆
+        </span>
+      );
+    }
+  
+    return <span>{stars}</span>;
+  }
+
 export default function MusicComponent({ id, username, artist, song, rating, signedinUser, updateMusicData }) {
     const navigate = useNavigate();
 
@@ -64,7 +97,7 @@ export default function MusicComponent({ id, username, artist, song, rating, sig
                 ({username})- <strong>{artist} - {song}</strong>
             </div>
             <div style={{ flex: 1 }}>
-                Rating: {rating}
+                {StarRating({rating: rating})}
             </div>
             <Button onClick={() => navigate("/read")}>Read</Button>
             {signedinUser === username && (

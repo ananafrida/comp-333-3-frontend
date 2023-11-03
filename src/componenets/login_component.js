@@ -1,4 +1,5 @@
 import React from "react"
+import Cookies from 'js-cookie';
 import { useState , useEffect } from "react"
 import { TextField, FormControl, Button } from "@mui/material";
 import axios from "axios";
@@ -13,6 +14,7 @@ export default function LoginComponent ({updateMusicData, showLogin, updateShowL
     const [passwordError, setPasswordError] = useState(false);
     const [user, setUser] = useState();
 
+
     const navigate = useNavigate();
 
     function loginUser (event) {
@@ -26,9 +28,12 @@ export default function LoginComponent ({updateMusicData, showLogin, updateShowL
             .then((response) => {
 
             if (response.data.success) {
-                
                 setUser(response.data.username);
-                localStorage.setItem('user', response.data.username);
+                // localStorage.setItem('user', response.data.username);
+                Cookies.set('name', response.data.username, { expires: 1 })
+                // Cookies.set('name', 'value', { expires: 365 })
+                // Cookies.get('name') // => 'value'
+                // Cookies.remove('name')
 
                 const cookies = response.headers['set-cookie'];
                 localStorage.setItem('cookies', JSON.stringify(cookies));
@@ -50,6 +55,7 @@ export default function LoginComponent ({updateMusicData, showLogin, updateShowL
     return (
         <div className={styles.container}> 
             <form class={styles.form} autoComplete="off" onSubmit={loginUser}>
+
                 <TextField 
                     label="username"
                     onChange={e => setUsername(e.target.value)}
