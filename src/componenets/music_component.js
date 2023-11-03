@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TextField, FormControl, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styles from "./music_component.module.css"
+import axios from "axios";
 
-export default function MusicComponent({ id, username, artist, song, rating, signedinUser }) {
+export default function MusicComponent({ id, username, artist, song, rating, signedinUser, updateMusicData }) {
     const navigate = useNavigate();
 
     const [isUpdateFormVisible, setUpdateFormVisibility] = useState(false);
@@ -37,9 +38,14 @@ export default function MusicComponent({ id, username, artist, song, rating, sig
 
     const handleDeleteSubmit = (event) => {
         event.preventDefault();
-        // Handle update logic (e.g., send data to the server)
-        // After successful update, you can close the form
-        setDeleteFormVisibility(false);
+        console.log(id);
+        axios.post("http://localhost:80/index.php/music/delete",{id : id}, {withCredentials: true}).then(
+            () => {
+                setDeleteFormVisibility(false);
+                updateMusicData();
+            }
+        )
+        
     }
 
     const handleDeleteCancel = (event) => {

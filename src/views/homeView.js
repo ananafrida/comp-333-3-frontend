@@ -30,6 +30,11 @@ export default function HomeView () {
         navigate("/login");
     }
 
+    function updateMusicData() {
+        getMusic();
+    }
+    
+
     function getMusic() {
         axios
             .get("http://localhost:80/index.php/music/list")
@@ -61,6 +66,7 @@ export default function HomeView () {
                         song={music.song}
                         rating={music.rating}
                         signedinUser={user}
+                        updateMusicData={updateMusicData}
                     />
                 ))}
             </div>

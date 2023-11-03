@@ -30,13 +30,16 @@ export default function LoginView () {
             .post("http://localhost:80/index.php/user/login",{
                 username: username,
                 password: password,
-            })
+            }, {withCredentials: true})
             .then((response) => {
 
             if (response.data.success) {
-
+                
                 setUser(response.data.username);
                 localStorage.setItem('user', response.data.username);
+
+                const cookies = response.headers['set-cookie'];
+                localStorage.setItem('cookies', JSON.stringify(cookies));
 
                 navigate("/");
             } else {
