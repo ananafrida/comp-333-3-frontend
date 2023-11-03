@@ -65,6 +65,7 @@ export default function RegisterView () {
         <div className={styles.container}> 
             <h1 className={styles.heading}>Register Form</h1>
             <form autoComplete="off" onSubmit={registerUser}>
+                {/* cross checking the username */}
                 <TextField 
                     label="username"
                     onChange={e => setUsername(e.target.value)}
@@ -89,6 +90,7 @@ export default function RegisterView () {
                     fullWidth
                     sx={{mb: 3}}
                  />
+                 {/* input password second time to be confirmed about it */}
                 <TextField 
                     label="Confirm Password"
                     onChange={e => setConfirmPassword(e.target.value)}
@@ -101,6 +103,7 @@ export default function RegisterView () {
                     fullWidth
                     sx={{mb: 3}}
                  />
+                 {/* specific button with styling for logging in  */}
                  <Button variant="outlined" color="secondary" type="submit">Login</Button>
              
         </form>

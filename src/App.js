@@ -14,12 +14,13 @@ import RegisterView from './views/registerView';
 
 function App() {
   return (
+    // setting different routing parth for different files 
     <BrowserRouter>
         <Routes>
               <Route path="/" element={<HomeView />} />
               <Route path="/create" element={<CreateView />} />
               <Route path="/read" element={<ReadView />} />
-              <Route path="/update/:id" element={<UpdateView onClose={() =>{}} />} />
+              <Route path="/update=" element={<UpdateView />} />
               <Route path="/delete" element={<DeleteView />} />
               <Route path="/register" element={<RegisterView />} />
               <Route path="/login" element={<LoginView />} />
