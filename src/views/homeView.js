@@ -59,6 +59,7 @@ function HomeView() {
     rating: "",
   });
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [artistFilter, setArtistFilter] = useState(""); // State for artist filtering
 
   useEffect(() => {
     const user = Cookies.get('name');
@@ -111,6 +112,12 @@ function HomeView() {
       });
   };
 
+  const filteredSongs = songList.filter((song) =>
+    artistFilter
+      ? song.artist.toLowerCase().includes(artistFilter.toLowerCase())
+      : true
+  );
+
   return (
     <div>
       {loggedInUser && (
@@ -125,6 +132,14 @@ function HomeView() {
         </>
       )}
 
+      <TextField
+        label="Search by Artist"
+        value={artistFilter}
+        onChange={(e) => setArtistFilter(e.target.value)}
+        fullWidth
+        style={{ margin: "20px 0" }}
+      />
+
       <Button
         variant="contained"
         color="primary"
@@ -134,7 +149,7 @@ function HomeView() {
       </Button>
 
       <List>
-        {songList.map((song) => (
+        {filteredSongs.map((song) => (
           <ListItem key={song.id}>
             <ListItemText
               primary={song.song}
