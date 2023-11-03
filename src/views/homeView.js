@@ -95,7 +95,7 @@ export default function HomeView () {
                     updateShowRegister={updateShowRegister}
                 />
                 )}
-            <Button onClick={() => navigate("/create")}>Create</Button>
+            <Button>Create</Button>
             <div>
             {musicData.map((music) => (
                     <MusicComponent
