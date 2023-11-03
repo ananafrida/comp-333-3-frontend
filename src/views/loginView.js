@@ -31,7 +31,7 @@ export default function LoginView () {
         }
     }, [user, navigate])
 
-    function registerUser (event) {
+    function loginUser (event) {
         event.preventDefault();
 
         axios
@@ -67,8 +67,8 @@ export default function LoginView () {
 
     return (
         <div className={styles.container}> 
-            <h1 className={styles.heading}>Register Form</h1>
-            <form autoComplete="off" onSubmit={registerUser}>
+            <h1 className={styles.heading}>Login Form</h1>
+            <form autoComplete="off" onSubmit={loginUser}>
                 <TextField 
                     label="username"
                     onChange={e => setUsername(e.target.value)}
