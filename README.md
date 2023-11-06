@@ -1,6 +1,6 @@
 # Frontend README
 
-This README provides information on the frontend part of our project for COMP 333: Software Engineering 2023 at Wesleyan University.
+This README provides information on the frontend part of our project for COMP 333: Software Engineering 2023 at Wesleyan University. The project is developed by [n-aggarwa](https://github.com/n-aggarwal) and [@ananafrida](https://github.com/ananafrida).
 
 ## Project Overview
 
@@ -42,11 +42,7 @@ For details on the backend and how to set up the database, refer to the [Backend
 
 ## Feature Implementation
 
-In addition to the required CRUD operations, we have implemented the following feature: [Describe the feature you implemented and how to use it.]
+In addition to the required CRUD operations, we have implemented the following feature: 
+- Filter functionality.
 
-## Team Contribution
 
-Please provide an estimate of how much each team member contributed. For example, "50/50" or "60/40". This helps us understand the distribution of work.
-
-- Team Member 1: Anan Afrida (90%)
-- Team Member 2: Nishant Aggarwal (10%)
