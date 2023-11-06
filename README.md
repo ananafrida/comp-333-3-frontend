@@ -1,6 +1,6 @@
 # Frontend README
 
-This README provides information on the frontend part of our project for COMP 333: Software Engineering 2023 at Wesleyan University. The project is developed by [n-aggarwa](https://github.com/n-aggarwal) and [@ananafrida](https://github.com/ananafrida).
+This README provides information on the frontend part of our project for COMP 333: Software Engineering 2023 at Wesleyan University. The project is developed by [@n-aggarwal](https://github.com/n-aggarwal) and [@ananafrida](https://github.com/ananafrida).
 
 ## Project Overview
 
