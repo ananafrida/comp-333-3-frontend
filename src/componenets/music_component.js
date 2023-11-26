@@ -99,7 +99,6 @@ export default function MusicComponent({ id, username, artist, song, rating, sig
             <div style={{ flex: 1 }}>
                 {StarRating({rating: rating})}
             </div>
-            <Button onClick={() => navigate("/read")}>Read</Button>
             {signedinUser === username && (
                 <>
                     <Button onClick={handleUpdateClick}>Update</Button>
