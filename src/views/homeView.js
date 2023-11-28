@@ -1,11 +1,125 @@
-// Import necessary React, MUI components, and external libraries
+/*
+<<<<<<< HEAD
+import React from "react"
+import { useState , useEffect } from "react"
+import { TextField, FormControl, Button } from "@mui/material";
+import axios from "axios";
+import styles from './homeView.module.css';
+import { useNavigate, Link } from "react-router-dom";
+import MusicComponent from "../componenets/music_component";
+import LoginComponent from "../componenets/login_component";
+import RegisterComponent from "../componenets/register_componenet";
+
+export default function HomeView () {
+
+    const [user, setUser] = useState();
+    const [musicData, setMusicData] = useState([]);
+
+    const [showLogin, updateShowLogin] = useState(false);
+    const [showRegister, updateShowRegister] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("user");
+        if (loggedInUser) {
+          const foundUser = loggedInUser;
+          setUser(foundUser);
+          getMusic();
+        }
+        // else {
+        //     navigate("/login");
+        // }
+      }, [showLogin, showRegister]);
+
+    function logout () {
+        setUser();
+        axios.post("http://localhost:80/index.php/user/logout", {}, {withCredentials: true}).then(
+            () => {
+                localStorage.clear();
+                // navigate("/login");
+                getMusic();
+            }
+        )
+
+    }
+
+    function updateMusicData() {
+        getMusic();
+    }
+    
+
+    function getMusic() {
+        axios
+            .get("http://localhost:80/index.php/music/list")
+            .then((response) => {
+                    console.log(response);
+                    response = response.data;
+
+                    setMusicData(response);
+
+            })
+            .catch((error) => {
+            console.error("Error Displaying music:", error);
+            // Handle registration error, display an error message, etc.
+            });
+        return;
+    }
+
+    return (
+        <div>
+            <h1>Home View</h1>
+            {!user && <div><Button onClick={() => {
+                updateShowLogin(!showLogin); 
+                if (showRegister) {
+                    updateShowRegister(!showRegister);
+                }
+            }}>Log In</Button>
+            <Button onClick={() => {
+                updateShowRegister(!showRegister);
+                if (showLogin) {
+                    updateShowLogin (!showLogin);
+                }
+                }}>Register</Button></ div>}
+            
+
+            {showLogin && (
+                <LoginComponent
+                    updateMusicData={updateMusicData}
+                    showLogin={showLogin}
+                    updateShowLogin={updateShowLogin}
+                />
+                )}
+            {showRegister && (
+                <RegisterComponent
+                    updateMusicData={updateMusicData}
+                    showRegister={showRegister}
+                    updateShowRegister={updateShowRegister}
+                />
+                )}
+            <Button>Create</Button>
+            <div>
+            {musicData.map((music) => (
+                    <MusicComponent
+                        key={music.id}
+                        id={music.id}
+                        username={music.username}
+                        artist={music.artist}
+                        song={music.song}
+                        rating={music.rating}
+                        signedinUser={user}
+                        updateMusicData={updateMusicData}
+                    />
+                ))}
+            </div>
+            {user && <Button onClick={logout}>Logout</Button>}
+        </div>
+    )
+}
+*/
 import React, { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
 import {
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
   Button,
   Dialog,
   DialogTitle,
@@ -14,75 +128,93 @@ import {
   DialogActions,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import UpdateView from "./updateView"; // Import the UpdateView component
-
-// StarRating component to display song ratings
-function StarRating({ rating }) {
-  const maxStars = 5;
-  const fullStars = Math.floor(rating);
-  const halfStars = rating - fullStars >= 0.5 ? 1 : 0;
-
-  const stars = [];
-  for (let i = 0; i < fullStars; i++) {
-    stars.push(
-      <span key={i} role="img" aria-label="star">
-        ⭐
-      </span>
-    );
-  }
-
-  if (halfStars === 1) {
-    stars.push(
-      <span key={fullStars} role="img" aria-label="half-star">
-        🌟
-      </span>
-    );
-  }
-
-  while (stars.length < maxStars) {
-    stars.push(
-      <span key={stars.length} role="img" aria-label="empty-star">
-        ☆
-      </span>
-    );
-  }
-
-  return <span>{stars}</span>;
-}
+import MusicComponent from "../componenets/music_component";
+import LoginComponent from "../componenets/login_component";
+import RegisterComponent from "../componenets/register_componenet";
+import axios from "axios";
 
 function HomeView() {
   const navigate = useNavigate();
-  const [songList, setSongList] = useState([]); // State to store the list of songs
-  const [loggedInUser, setLoggedInUser] = useState(null); // State to store the logged-in user
-  const [openCreateDialog, setOpenCreateDialog] = useState(false); // State to control the visibility of the create dialog
-  const [newSong, setNewSong] = useState({ // State to store data of the new song
+  const [songList, setSongList] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [openCreateDialog, setOpenCreateDialog] = useState(false);
+  const [newSong, setNewSong] = useState({
     artist: "",
     song: "",
     rating: "",
   });
-  const [showUpdateForm, setShowUpdateForm] = useState(false); // State to control the visibility of the update form
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [artistFilter, setArtistFilter] = useState(""); // State for artist filtering
+  const [musicData, setMusicData] = useState([]);
+  const [showLogin, updateShowLogin] = useState(false);
+  const [showRegister, updateShowRegister] = useState(false);
 
-  // Effect to fetch user data and song list
+
   useEffect(() => {
     const user = Cookies.get('name');
     if (user) {
       setLoggedInUser(user);
     } else {
-      navigate("/login");
       return;
     }
 
-    fetch(`http://localhost:80/index.php/music/list?username=${user}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSongList(data);
+    axios.get(`http://localhost:80/index.php/music/list?username=${user}`, {withCredentials: true})
+      .then((response) => {
+        setSongList(response.data);
       })
       .catch((error) => {
         console.error("Error fetching song list:", error);
       });
 
   }, [navigate]);
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = loggedInUser;
+      setLoggedInUser(foundUser);
+      getMusic();
+    }
+    // else {
+    //     navigate("/login");
+    // }
+  }, [showLogin, showRegister]);
+
+function logout () {
+    setLoggedInUser();
+    axios.post("http://localhost:80/index.php/user/logout", {}, {withCredentials: true}).then(
+        () => {
+            localStorage.clear();
+            // navigate("/login");
+            getMusic();
+        }
+    )
+
+}
+
+    function updateMusicData() {
+        getMusic();
+    }
+
+
+    function getMusic() {
+        axios
+            .get("http://localhost:80/index.php/music/list")
+            .then((response) => {
+                    console.log(response);
+                    response = response.data;
+
+                    setMusicData(response);
+                    setSongList(response);
+
+            })
+            .catch((error) => {
+            console.error("Error Displaying music:", error);
+            // Handle registration error, display an error message, etc.
+            });
+        return;
+    }
+
 
   const handleCreateClick = () => {
     setOpenCreateDialog(true);
@@ -93,17 +225,11 @@ function HomeView() {
   };
 
   const handleCreateSong = () => {
-    // Send a request to create the new song
-    fetch("http://localhost:80/index.php/music/create", {
-      method: "POST",
-      body: JSON.stringify(newSong),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        fetch("http://localhost:80/index.php/music/list")
-          .then((response) => response.json())
-          .then((data) => {
-            setSongList(data);
+    axios.post("http://localhost:80/index.php/music/create", JSON.stringify(newSong), {withCredentials: true})
+      .then((response) => {
+        axios.get("http://localhost:80/index.php/music/list", {withCredentials: true})
+          .then((response) => {
+            setSongList(response.data);
           })
           .catch((error) => {
             console.error("Error fetching song list:", error);
@@ -116,7 +242,6 @@ function HomeView() {
       });
   };
 
-  // Filter songs based on artist name
   const filteredSongs = songList.filter((song) =>
     artistFilter
       ? song.artist.toLowerCase().includes(artistFilter.toLowerCase())
@@ -125,19 +250,33 @@ function HomeView() {
 
   return (
     <div>
-      {loggedInUser && (
-        <>
-          <Typography variant="h6">
-            Welcome, {loggedInUser}!
-          </Typography>
-          <button onClick={() => {
-            Cookies.remove('name');
-            navigate("/login");
-          }}>Logout</button>
-        </>
-      )}
+        {!loggedInUser && <div><Button onClick={() => {
+                updateShowLogin(!showLogin); 
+                if (showRegister) {
+                    updateShowRegister(!showRegister);
+                }
+            }}>Log In</Button>
+            <Button onClick={() => {
+                updateShowRegister(!showRegister);
+                if (showLogin) {
+                    updateShowLogin (!showLogin);
+                }
+                }}>Register</Button></ div>}
+                {showLogin && (
+                <LoginComponent
+                    updateMusicData={updateMusicData}
+                    showLogin={showLogin}
+                    updateShowLogin={updateShowLogin}
+                />
+                )}
+            {showRegister && (
+                <RegisterComponent
+                    updateMusicData={updateMusicData}
+                    showRegister={showRegister}
+                    updateShowRegister={updateShowRegister}
+                />
+                )}
 
-      {/* Textfield for artist search */}
       <TextField
         label="Search by Artist"
         value={artistFilter}
@@ -154,26 +293,20 @@ function HomeView() {
         Create Song
       </Button>
 
-      <List>
-        {filteredSongs.map((song) => (
-          <ListItem key={song.id}>
-            <ListItemText
-              primary={song.song}
-              secondary={`Artist: ${song.artist}`}
-            />
-            <StarRating rating={song.rating} />
-            {loggedInUser === song.username && (
-              <Link to={`/update/${song.id}`}>
-                <Button variant="contained" color="primary">
-                  Update
-                </Button>
-              </Link>
-            )}
-          </ListItem>
+      <div>
+        {filteredSongs.map((music) => (
+          <MusicComponent
+          key={music.id}
+          id={music.id}
+          username={music.username}
+          artist={music.artist}
+          song={music.song}
+          rating={music.rating}
+          signedinUser={loggedInUser}
+          updateMusicData={updateMusicData}
+      />
         ))}
-      </List>
-
-      {showUpdateForm && <UpdateView onClose={() => setShowUpdateForm(false)} />}
+      </div>
 
       <Dialog open={openCreateDialog} onClose={handleCreateClose}>
         <DialogTitle>Create New Song</DialogTitle>
@@ -186,7 +319,7 @@ function HomeView() {
             }
             fullWidth
           />
-  <TextField
+          <TextField
             label="Song"
             value={newSong.song}
             onChange={(e) => setNewSong({ ...newSong, song: e.target.value})}
@@ -210,6 +343,7 @@ function HomeView() {
           </Button>
         </DialogActions>
       </Dialog>
+      {loggedInUser && <Button onClick={logout}>Logout</Button>}
     </div>
   );
 }

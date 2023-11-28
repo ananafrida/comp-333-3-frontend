@@ -2,36 +2,21 @@ import React from "react"
 import { useState , useEffect } from "react"
 import { TextField, FormControl, Button } from "@mui/material";
 import axios from "axios";
-import styles from './registerView.module.css';
-import { useNavigate } from "react-router-dom";
+import styles from './login_component.module.css';
+import { useNavigate, Link } from "react-router-dom";
 
-export default function RegisterView () {
+export default function RegisterComponent ({updateMusicData, showRegister, updateShowRegister}) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [user, setUser] = useState();
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const loggedInUser = localStorage.getItem("user");
-        if (loggedInUser) {
-          const foundUser = loggedInUser;
-          setUser(foundUser);
-        }
-      }, []);
-
-    useEffect(() => {
-        if (user) {
-            navigate("/");
-        }
-    }, [user, navigate])
-
-    function registerUser (event) {
+    function loginUser (event) {
         event.preventDefault();
 
         axios
@@ -39,23 +24,26 @@ export default function RegisterView () {
                 username: username,
                 password: password,
                 confirm_password: confirmPassword
-            })
+            }, {withCredentials: true})
             .then((response) => {
 
             if (response.data.success) {
-
+                
                 setUser(response.data.username);
                 localStorage.setItem('user', response.data.username);
-                navigate("/");
-                // Handle successful registration, such as redirecting to another page
+
+                const cookies = response.headers['set-cookie'];
+                localStorage.setItem('cookies', JSON.stringify(cookies));
+                updateShowRegister(false);
+                updateMusicData();
             } else {
-                console.error(`Registration failed. ${response.data.username}`);
+                console.error(`Register failed. ${response.data.username}`);
                 // Handle registration failure, display an error message, etc.
             }
 
             })
             .catch((error) => {
-            console.error("Error registering user:", error);
+            console.error("Error Registering in user:", error);
             // Handle registration error, display an error message, etc.
             });
         return;
@@ -63,9 +51,7 @@ export default function RegisterView () {
 
     return (
         <div className={styles.container}> 
-            <h1 className={styles.heading}>Register Form</h1>
-            <form autoComplete="off" onSubmit={registerUser}>
-                {/* cross checking the username */}
+            <form class={styles.form} autoComplete="off" onSubmit={loginUser}>
                 <TextField 
                     label="username"
                     onChange={e => setUsername(e.target.value)}
@@ -90,7 +76,6 @@ export default function RegisterView () {
                     fullWidth
                     sx={{mb: 3}}
                  />
-                 {/* input password second time to be confirmed about it */}
                 <TextField 
                     label="Confirm Password"
                     onChange={e => setConfirmPassword(e.target.value)}
@@ -99,15 +84,13 @@ export default function RegisterView () {
                     color="secondary"
                     type="password"
                     value={confirmPassword}
-                    error={confirmPasswordError}
+                    error={passwordError}
                     fullWidth
                     sx={{mb: 3}}
                  />
-                 {/* specific button with styling for logging in  */}
-                 <Button variant="outlined" color="secondary" type="submit">Login</Button>
+                 <Button variant="outlined" color="secondary" type="submit">Register</Button>
              
         </form>
         </div>
     )
 }
-

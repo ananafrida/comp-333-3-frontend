@@ -7,15 +7,17 @@
 }
 
 .container {
-    padding: 20px;
-    background-color: #bc8cd6;
-    min-height: 100vh;
-    
+    background-color: #bc8cd6;    
 }
 
 .MuiFormControl-root {
     background-color: white;
-    width: 100%; 
-    max-width: 200px; 
+    width: 100%; /* Makes the inputs fill the available width */
+    max-width: 200px; /* Limits the maximum width of the inputs */
     margin-bottom: 15px;
-  }
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+}
