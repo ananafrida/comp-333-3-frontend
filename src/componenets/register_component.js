@@ -14,7 +14,6 @@ export default function RegisterComponent ({updateMusicData, showRegister, updat
     const [passwordError, setPasswordError] = useState(false);
     const [user, setUser] = useState();
 
-    const navigate = useNavigate();
 
     function loginUser (event) {
         event.preventDefault();
@@ -51,7 +50,12 @@ export default function RegisterComponent ({updateMusicData, showRegister, updat
 
     return (
         <div className={styles.container}> 
-            <form class={styles.form} autoComplete="off" onSubmit={loginUser}>
+            <form 
+                class={styles.form} 
+                autoComplete="off" 
+                onSubmit={loginUser}
+                data-testid="register-form"
+            >
                 <TextField 
                     label="username"
                     onChange={e => setUsername(e.target.value)}
@@ -63,32 +67,37 @@ export default function RegisterComponent ({updateMusicData, showRegister, updat
                     fullWidth
                     value={username}
                     error={usernameError}
+                    data-testid="username-input"
                  />
                  <TextField 
-                    label="Password"
+                    label="Raw-Password"
                     onChange={e => setPassword(e.target.value)}
                     required
                     variant="outlined"
                     color="secondary"
-                    type="password"
+                    type="raw-password"
                     value={password}
                     error={passwordError}
                     fullWidth
                     sx={{mb: 3}}
+                    data-testid="raw-password-input"
                  />
                 <TextField 
-                    label="Confirm Password"
+                    label="Confirm-Password"
                     onChange={e => setConfirmPassword(e.target.value)}
                     required
                     variant="outlined"
                     color="secondary"
-                    type="password"
+                    type="confirmpassword"
                     value={confirmPassword}
                     error={passwordError}
                     fullWidth
                     sx={{mb: 3}}
+                    data-testid="confirm-password-input"
                  />
-                 <Button variant="outlined" color="secondary" type="submit">Register</Button>
+                 <Button variant="outlined" color="secondary" type="submit" data-testid="register-button">
+                    Register
+                 </Button>
              
         </form>
         </div>
