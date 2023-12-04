@@ -130,7 +130,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import MusicComponent from "../componenets/music_component";
 import LoginComponent from "../componenets/login_component";
-import RegisterComponent from "../componenets/register_componenet";
+import RegisterComponent from "../componenets/register_component";
 import axios from "axios";
 
 function HomeView() {
@@ -249,7 +249,9 @@ function logout () {
   );
 
   return (
+    
     <div>
+       <Link to="/create">Create</Link>
         {!loggedInUser && <div><Button onClick={() => {
                 updateShowLogin(!showLogin); 
                 if (showRegister) {
