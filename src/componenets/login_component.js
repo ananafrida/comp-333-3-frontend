@@ -37,8 +37,8 @@ export default function LoginComponent ({updateMusicData, showLogin, updateShowL
               updateShowLogin(false);
               updateMusicData();
             } else {
-              console.error(`Login failed.`);
-              setLoginError(`Login failed.`);
+              console.error(`Login failed`);
+              setLoginError(`Login failed`);
             }
           })
           .catch((error) => {
@@ -85,12 +85,14 @@ export default function LoginComponent ({updateMusicData, showLogin, updateShowL
             <Button variant="outlined" color="secondary" type="submit" data-testid="login-button">
               Login
             </Button>
+            {/* for testing login incorrect user input in login and gives a negative condition */}
             {loginError && (
-          <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+          <Typography data-testid="Login failed" variant="body2" color="error" sx={{ mt: 1 }}>
             {loginError}
           </Typography>
-        )}
+          )}
           </form>
+
         </div>
       );
 }
