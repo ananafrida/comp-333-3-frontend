@@ -1,34 +1,45 @@
+// Importing necessary dependencies for testing React components
 import React from "react";
 import { render, screen } from "@testing-library/react";
+
+// Importing the RegisterComponent to be tested
 import RegisterComponent from "./register_component.js";
 
-describe("RegisterComponent", () => { 
-    test("renders username input field", () => { render(<RegisterComponent />);
-    const usernameInput = screen.getByLabelText(/username/i);
-    expect(usernameInput).toBeInTheDocument();
-    })
+// Describe block for grouping related test cases for RegisterComponent
+describe("RegisterComponent", () => {
+    // Test case: checking if the username input field is rendered
+    test("renders username input field", () => {
+        // Rendering the RegisterComponent
+        render(<RegisterComponent />);
+        
+        // Retrieving the username input field using the label text
+        const usernameInput = screen.getByLabelText(/username/i);
+        
+        // Asserting that the username input field is present in the rendered component
+        expect(usernameInput).toBeInTheDocument();
+    });
 
-    test("renders password input field", () => { render(<RegisterComponent />);
-    const passwordInput = screen.getByLabelText(/raw-password/i);
-    expect(passwordInput).toBeInTheDocument();
-    })
+    // Test case: checking if the password input field is rendered
+    test("renders password input field", () => {
+        // Rendering the RegisterComponent
+        render(<RegisterComponent />);
+        
+        // Retrieving the password input field using the label text
+        const passwordInput = screen.getByLabelText(/raw-password/i);
+        
+        // Asserting that the password input field is present in the rendered component
+        expect(passwordInput).toBeInTheDocument();
+    });
 
-    test("renders confirm password input field", () => { render(<RegisterComponent />);
-    const confirmpasswordInput = screen.getByLabelText(/confirm-password/i);
-    expect(confirmpasswordInput).toBeInTheDocument();
-    })
-    // const usernameInput = screen.getByLabelText(/username/i) 
-    // expect(usernameInput).toBeInTheDocument() 
-    // expect(usernameInput).toHaveAttribute("type", "text") })
-
-    // test("renders password input field", () => { render(<RegisterComponent />) 
-    // const passwordInput = screen.getByLabelText(/password/i) 
-    // expect(passwordInput).toBeInTheDocument() 
-    // expect(passwordInput).toHaveAttribute("type", "password") })
-
-    // test("renders confirm password input field", () => { render(<RegisterComponent />) 
-    // const confirmPasswordInput = screen.getByLabelText(/confirm password/i) 
-    // expect(confirmPasswordInput).toBeInTheDocument() 
-    // expect(confirmPasswordInput).toHaveAttribute("type", "password") 
-
- })
+    // Test case: checking if the confirm password input field is rendered
+    test("renders confirm password input field", () => {
+        // Rendering the RegisterComponent
+        render(<RegisterComponent />);
+        
+        // Retrieving the confirm password input field using the label text
+        const confirmPasswordInput = screen.getByLabelText(/confirm-password/i);
+        
+        // Asserting that the confirm password input field is present in the rendered component
+        expect(confirmPasswordInput).toBeInTheDocument();
+    });
+});
